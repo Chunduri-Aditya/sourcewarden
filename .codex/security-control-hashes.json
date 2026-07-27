@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "algorithm": "sha256",
+  "files": {
+    "AGENTS.md": "0edacbba96dc167645100264eb527e55c19199bdbfe2969a9777cbb2b8221eba",
+    "config/agent-policy.yaml": "36cf817556dc4fa44dba3a0c19ef08c058b08a7f8e66d862c69d8cc1c35e6eb8",
+    "config/agent-orchestration.json": "cc7b6845d141f698755431aebe3ec230e42222e66e0c0ecbc277c163c98a31ff",
+    "evals/EVAL_PROTOCOL.md": "be64068094f271296bddbfb1562e578d0d986ca909c1831cd5fce87e4ec88033",
+    "evals/generalized-cases.jsonl": "903b8b7c75a2be0cb41880071160d04360fad0b114c06bee212848b6dc128bbb",
+    "scripts/grade-agent-eval.mjs": "977b125cc36314851a81684d94133a2582325ff690528a0bc4f68d4e205025e0",
+    "scripts/security-gate.mjs": "3db58913a97ce864bea1be1a3e12c81db4af640559c2224208698b4325580312",
+    "scripts/validate-agent-run.mjs": "fe107341582337eb873e87d29e82225cc026feac3a38672a91cf2f20cdebe3a5",
+    "scripts/validate-agent-system.py": "17fdcaa96207e9c04b6e165232220c764d402706ff15c99c421f2ae0a6852267",
+    "scripts/validate-generalized-evals.mjs": "4befa17c2da05590e74377c790fb366b4ff6d606d8622ebd1b149656bb4ae26f",
+    "scripts/validate-n8n-config.py": "2ad8a5dbf7cf983a95a724ff453f1e44911861a98f65213658bb0c6b694612c4"
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "assignmentId": "agent-reliability-tuning-proposal-20260725-01-r1",
+  "runId": "agent-reliability-20260725-01",
+  "candidateScope": {
+    "patch": "tuning/proposals/agent-reliability-20260725-01/agent-instructions.patch",
+    "proposedDirectory": "tuning/proposals/agent-reliability-20260725-01/proposed",
+    "productionApplied": false
+  },
+  "tomlParse": {
+    "parser": "python3 tomllib",
+    "valid": true,
+    "parsedCount": 6,
+    "files": [
+      "deviation-monitor.toml",
+      "eval-tuner.toml",
+      "module-builder.toml",
+      "security-firewall.toml",
+      "skeleton-architect.toml",
+      "supervisor.toml"
+    ],
+    "errors": []
+  },
+  "immutableConstraintEquality": {
+    "valid": true,
+    "comparedFields": [
+      "name",
+      "description",
+      "model_reasoning_effort",
+      "sandbox_mode",
+      "approval_policy",
+      "allow_login_shell",
+      "web_search",
+      "features",
+      "mcp_servers",
+      "sandbox_workspace_write",
+      "shell_environment_policy"
+    ],
+    "mismatches": [],
+    "conclusion": "Only developer_instructions differ from the production role definitions."
+  },
+  "patchCheck": {
+    "command": "git apply --check tuning/proposals/agent-reliability-20260725-01/agent-instructions.patch",
+    "valid": true
+  },
+  "coverageAssertions": [
+    {
+      "dimension": "structured_validation",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "stable_identity_and_operation_specific_idempotency",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "bounded_retry_backoff_jitter_and_eligibility",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "failure_branches_error_envelope_and_error_trigger_semantics",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "credentials_data_classification_privacy_redaction_and_retention",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "structured_logging_monitoring_alert_deduplication_and_recursion",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "provider_rate_limits_and_concurrency",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "external_side_effect_success_guard_and_postcondition_oracle",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    },
+    {
+      "dimension": "partial_or_uncertain_commit_state_reconciliation_and_recovery",
+      "accountableRoles": [
+        "supervisor",
+        "skeleton_architect",
+        "module_builder"
+      ],
+      "enforcementRoles": [
+        "security_firewall",
+        "deviation_monitor"
+      ],
+      "tuningRole": "eval_tuner",
+      "covered": true
+    }
+  ],
+  "coverageSummary": {
+    "dimensionCount": 9,
+    "coveredDimensionCount": 9,
+    "everyDimensionHasAccountableRole": true,
+    "everyDimensionHasSecurityEnforcement": true,
+    "everyDimensionHasMonitorEnforcement": true,
+    "interpretation": "Static instruction coverage only; not behavioral evidence."
+  },
+  "readOnlyRepositoryValidation": {
+    "productionAgentSystem": {
+      "command": "python3 scripts/validate-agent-system.py",
+      "valid": true,
+      "agentCount": 6,
+      "errorCount": 0
+    },
+    "generalizedTrainingData": {
+      "command": "node scripts/validate-generalized-evals.mjs",
+      "valid": true,
+      "mode": "repository",
+      "caseCount": 74,
+      "splits": [
+        "train"
+      ],
+      "errorCount": 0
+    }
+  },
+  "visiblePostChangeScores": {
+    "behavioralCaseCountExecuted": 0,
+    "behavioralPassCount": null,
+    "behavioralPassRate": null,
+    "hardAssertionPassRate": null,
+    "reason": "No approved behavioral runner or signed event evidence was available. TOML parsing, coverage assertions, and dataset validation are structural checks only."
+  },
+  "regressions": {
+    "staticImmutableConstraintRegressions": [],
+    "behavioralRegressions": "not measured",
+    "securityRegressions": "not independently evaluated",
+    "externalValidationRegressions": "not measured",
+    "blindHoldoutRegressions": "not measured"
+  },
+  "evidenceAbsent": {
+    "behavioralTrainingRun": true,
+    "externalValidation": true,
+    "blindHoldout": true,
+    "externallySignedV2RunLedger": true,
+    "trustedIntegrationSnapshot": true,
+    "independentSecurityRegressionVerdict": true
+  },
+  "dataSeparation": {
+    "externalValidationMountedOrAccessed": false,
+    "blindHoldoutMountedOrAccessed": false,
+    "privatePromptsFixturesExpectedAnswersOrPerCaseOutcomesRequested": false
+  },
+  "recommendation": "HOLD_FOR_INDEPENDENT_EVALUATION_AND_TRUSTED_INTEGRATION"
+}

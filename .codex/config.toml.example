@@ -1,0 +1,47 @@
+[mcp_servers.n8n]
+url = "https://your-n8n-domain.example/mcp-server/http"
+bearer_token_env_var = "N8N_MCP_TOKEN"
+required = true
+tool_timeout_sec = 300
+default_tools_approval_mode = "writes"
+enabled_tools = [
+  "get_sdk_reference",
+  "get_workflow_best_practices",
+  "search_nodes",
+  "get_node_types",
+  "list_credentials",
+  "explore_node_resources",
+  "list_workflows",
+  "get_workflow",
+  "validate_node_config",
+  "validate_workflow",
+  "prepare_test_pin_data",
+  "create_workflow_from_code",
+  "update_workflow",
+  "test_workflow",
+  "publish_workflow",
+  "unpublish_workflow",
+  "execute_workflow",
+  "archive_workflow",
+]
+
+[mcp_servers.n8n.tools.publish_workflow]
+approval_mode = "prompt"
+
+[mcp_servers.n8n.tools.unpublish_workflow]
+approval_mode = "prompt"
+
+[mcp_servers.n8n.tools.execute_workflow]
+approval_mode = "prompt"
+
+[mcp_servers.n8n.tools.archive_workflow]
+approval_mode = "prompt"
+
+[mcp_servers.n8n.tools.update_workflow]
+approval_mode = "prompt"
+
+[mcp_servers.n8n.tools.create_workflow_from_code]
+approval_mode = "prompt"
+
+[mcp_servers.n8n.tools.test_workflow]
+approval_mode = "prompt"

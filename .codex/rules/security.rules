@@ -1,0 +1,80 @@
+prefix_rule(
+    pattern = ["rm", ["-rf", "-fr"]],
+    decision = "forbidden",
+    justification = "Recursive force deletion is prohibited. Use a scoped recoverable operation instead.",
+    match = ["rm -rf build", "rm -fr /tmp/example"],
+    not_match = ["rm file.txt"],
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Hard reset can destroy user work. Preserve changes and use a targeted non-destructive operation.",
+    match = ["git reset --hard", "git reset --hard HEAD~1"],
+    not_match = ["git reset HEAD file.txt"],
+)
+
+prefix_rule(
+    pattern = ["git", "clean", ["-f", "-fd", "-fdx", "-fx"]],
+    decision = "forbidden",
+    justification = "Forced Git clean can delete untracked user files.",
+    match = ["git clean -f", "git clean -fdx"],
+    not_match = ["git clean -n"],
+)
+
+prefix_rule(
+    pattern = ["git", "checkout", "--"],
+    decision = "forbidden",
+    justification = "Discarding paths through checkout is prohibited. Preserve user changes.",
+    match = ["git checkout -- src/index.ts"],
+    not_match = ["git checkout feature-branch"],
+)
+
+prefix_rule(
+    pattern = [["ssh", "scp", "sftp", "nc", "ncat", "netcat"]],
+    decision = "forbidden",
+    justification = "Direct remote shells and arbitrary socket tools are outside this project's agent boundary.",
+    match = ["ssh host.example", "scp file host:/tmp", "nc host.example 4444"],
+    not_match = ["git status"],
+)
+
+prefix_rule(
+    pattern = [["curl", "wget"]],
+    decision = "prompt",
+    justification = "Network retrieval requires explicit review of the destination and data flow.",
+    match = ["curl https://example.com", "wget https://example.com/file"],
+    not_match = ["git status"],
+)
+
+prefix_rule(
+    pattern = [["bash", "sh", "zsh"], ["-c", "-lc"]],
+    decision = "prompt",
+    justification = "String-evaluated shell commands require explicit review.",
+    match = ["bash -lc pwd", "sh -c env"],
+    not_match = ["bash script.sh"],
+)
+
+prefix_rule(
+    pattern = [["npm", "pnpm", "yarn"], ["install", "add"]],
+    decision = "prompt",
+    justification = "Adding dependencies or running package lifecycle scripts requires explicit approval.",
+    match = ["npm install lodash", "pnpm add zod", "yarn add react"],
+    not_match = ["npm test"],
+)
+
+prefix_rule(
+    pattern = [["pip", "pip3"], "install"],
+    decision = "prompt",
+    justification = "Installing Python packages requires explicit approval.",
+    match = ["pip install requests", "pip3 install pyyaml"],
+    not_match = ["python -m pytest"],
+)
+
+prefix_rule(
+    pattern = ["git", ["push", "commit"]],
+    decision = "prompt",
+    justification = "Repository publication and history changes require explicit review.",
+    match = ["git push origin main", "git commit -m update"],
+    not_match = ["git status"],
+)
+

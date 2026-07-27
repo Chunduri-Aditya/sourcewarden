@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "skeletonStatus": "accepted",
+  "sharedContracts": [
+    {
+      "path": "src/contracts/workflow.ts",
+      "owner": "skeleton_architect",
+      "frozenAfterSkeletonAcceptance": true
+    }
+  ],
+  "modules": [
+    {
+      "name": "example-module",
+      "ownedPaths": ["src/modules/example/", "tests/modules/example/"],
+      "interfaceContract": "src/contracts/workflow.ts#WorkflowModule",
+      "permittedDependencies": [],
+      "successCriteria": ["Implements the WorkflowModule contract"],
+      "testCommand": "npm test -- example-module"
+    }
+  ]
+}
+

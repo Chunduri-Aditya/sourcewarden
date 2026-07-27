@@ -1,0 +1,30 @@
+{
+  "description": "Fail-closed completion scan executed from the sandbox-protected .codex directory.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^mcp__n8n__(create_workflow_from_code|update_workflow|test_workflow|publish_workflow|unpublish_workflow|execute_workflow|archive_workflow)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env node \"$(git rev-parse --show-toplevel)/.codex/hooks/n8n-mutation-gate.mjs\"",
+            "timeout": 30,
+            "statusMessage": "Checking exact n8n mutation against the signed run ledger"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env node \"$(git rev-parse --show-toplevel)/.codex/hooks/security-gate.mjs\" --hook",
+            "timeout": 30,
+            "statusMessage": "Running n8n security completion gate"
+          }
+        ]
+      }
+    ]
+  }
+}

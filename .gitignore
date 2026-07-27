@@ -1,0 +1,9 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Private course source material. Commit only paraphrased skill references.
+knowledge/course-transcripts/inbox/
+knowledge/course-transcripts/raw/
+knowledge/course-transcripts/metadata/

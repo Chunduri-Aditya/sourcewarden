@@ -1,0 +1,10 @@
+max_tokens: 1000
+overlap_tokens: 150
+min_chunk_tokens: 40
+respect_code_blocks: true
+respect_procedure_blocks: true
+heading_split_levels:
+  - 1
+  - 2
+  - 3
+

@@ -1,0 +1,64 @@
+n8n_core_docs_rag:
+  purpose: n8n basics, workflows, triggers, credentials, expressions, executions, debugging, and glossary terms.
+  default_top_k: 5
+  priority_boost:
+    high: 0.15
+    medium: 0.07
+    low: 0.0
+  preferred_chunk_types:
+    - concept
+    - workflow_steps
+    - troubleshooting
+    - credential_setup
+    - beginner_explanation
+
+n8n_nodes_rag:
+  purpose: n8n node types, core nodes, app nodes, HTTP Request, Webhook, Code, Extract From File, node parameters, and credentials.
+  default_top_k: 5
+  priority_boost:
+    high: 0.15
+    medium: 0.07
+    low: 0.0
+  preferred_chunk_types:
+    - node_reference
+    - credential_setup
+    - code_example
+    - workflow_steps
+
+n8n_ai_agents_rag:
+  purpose: Advanced AI, AI Agent node, LangChain concepts, RAG in n8n, vector stores, memory, human fallback, and evaluations.
+  default_top_k: 5
+  priority_boost:
+    high: 0.15
+    medium: 0.07
+    low: 0.0
+  preferred_chunk_types:
+    - ai_agent
+    - rag
+    - workflow_steps
+    - troubleshooting
+
+n8n_workflow_json_rag:
+  purpose: Workflow export and import, workflow JSON, n8n API, reusable workflow patterns, templates, and importable blueprints.
+  default_top_k: 5
+  priority_boost:
+    high: 0.15
+    medium: 0.07
+    low: 0.0
+  preferred_chunk_types:
+    - workflow_json
+    - workflow_steps
+    - node_reference
+
+n8n_beginner_instruction_rag:
+  purpose: Simple English explanations, beginner instructions, common mistakes, step-by-step testing, and checklists.
+  default_top_k: 5
+  priority_boost:
+    high: 0.15
+    medium: 0.07
+    low: 0.0
+  preferred_chunk_types:
+    - beginner_explanation
+    - workflow_steps
+    - troubleshooting
+

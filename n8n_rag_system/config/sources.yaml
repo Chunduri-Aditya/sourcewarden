@@ -1,0 +1,1059 @@
+core_docs:
+  - title: n8n Docs Home
+    url: https://docs.n8n.io/welcome.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Key Concept Glossary
+    url: https://docs.n8n.io/key-concept-glossary.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Choose How To Use n8n
+    url: https://docs.n8n.io/choose-how-to-use-n8n.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Understand Workflows
+    url: https://docs.n8n.io/build/understand-workflows.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Workflow Components
+    url: https://docs.n8n.io/build/understand-workflows/workflow-components.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Work With Nodes
+    url: https://docs.n8n.io/build/understand-workflows/workflow-components/work-with-nodes.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Connect Nodes Together
+    url: https://docs.n8n.io/build/understand-workflows/workflow-components/connect-nodes-together.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Understand Executions
+    url: https://docs.n8n.io/build/understand-workflows/understand-executions.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Types Of Executions
+    url: https://docs.n8n.io/build/understand-workflows/understand-executions/types-of-executions.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Debug Executions
+    url: https://docs.n8n.io/build/understand-workflows/understand-executions/debug-executions.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Create And Run Workflows
+    url: https://docs.n8n.io/build/understand-workflows/create-and-run-workflows.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Save And Publish Workflows
+    url: https://docs.n8n.io/build/understand-workflows/save-and-publish-workflows.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Create And Edit Credentials
+    url: https://docs.n8n.io/build/understand-workflows/create-and-edit-credentials.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Manage Workflows
+    url: https://docs.n8n.io/build/manage-workflows.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Configure Workflow Settings
+    url: https://docs.n8n.io/build/manage-workflows/configure-workflow-settings.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Flow Logic
+    url: https://docs.n8n.io/build/flow-logic.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Split With Conditionals
+    url: https://docs.n8n.io/build/flow-logic/split-with-conditionals.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Merge Data
+    url: https://docs.n8n.io/build/flow-logic/merge-data.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Loop
+    url: https://docs.n8n.io/build/flow-logic/loop.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Wait
+    url: https://docs.n8n.io/build/flow-logic/wait.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Break Workflows Into Smaller Parts
+    url: https://docs.n8n.io/build/flow-logic/break-workflows-into-smaller-parts.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Convert To Sub Workflows
+    url: https://docs.n8n.io/build/flow-logic/convert-to-sub-workflows.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Handle Errors Gracefully
+    url: https://docs.n8n.io/build/flow-logic/handle-errors-gracefully.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Understand Execution Order
+    url: https://docs.n8n.io/build/flow-logic/understand-execution-order.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Work With Data Overview
+    url: https://docs.n8n.io/build/work-with-data/overview.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Understand n8n Data Structure
+    url: https://docs.n8n.io/build/work-with-data/understand-n8ns-data-structure.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Expressions Versus Data Nodes
+    url: https://docs.n8n.io/build/work-with-data/expressions-versus-data-nodes.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Reference Data
+    url: https://docs.n8n.io/build/work-with-data/reference-data.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Reference Previous Nodes
+    url: https://docs.n8n.io/build/work-with-data/reference-data/reference-previous-nodes.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Link Data Items
+    url: https://docs.n8n.io/build/work-with-data/reference-data/link-data-items.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Item Linking Errors
+    url: https://docs.n8n.io/build/work-with-data/reference-data/link-data-items/item-linking-errors.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Expressions For Data Transformation
+    url: https://docs.n8n.io/build/work-with-data/transform-data/expressions-for-data-transformation.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Expression Reference
+    url: https://docs.n8n.io/build/work-with-data/transform-data/expression-reference.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Work With Files And Images
+    url: https://docs.n8n.io/build/work-with-data/handle-special-data-types/work-with-files-and-images.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Pin And Mock Data
+    url: https://docs.n8n.io/build/work-with-data/pin-and-mock-data.md
+    category: core_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+node_docs:
+  - title: Node Types
+    url: https://docs.n8n.io/integrations/builtin/node-types.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Core Nodes
+    url: https://docs.n8n.io/integrations/builtin/core-nodes.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Manual Trigger Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.manualworkflowtrigger.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Schedule Trigger Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Webhook Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Webhook Workflow Development
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/workflow-development.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Respond To Webhook Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: HTTP Request Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Code Node
+    url: https://docs.n8n.io/build/code-in-n8n/using-the-code-node.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Code In n8n
+    url: https://docs.n8n.io/build/code-in-n8n.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Edit Fields Set Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.set.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: If Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.if.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Switch Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.switch.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Merge Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Split Out Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitout.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Loop Over Items Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitinbatches.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Wait Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Execute Sub Workflow Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executeworkflow.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Execute Sub Workflow Trigger
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executeworkflowtrigger.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Stop And Error Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.stopanderror.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Error Trigger Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Extract From File Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.extractfromfile.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Convert To File Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.converttofile.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Read Write Files From Disk Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.readwritefile.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: n8n Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.n8n.md
+    category: node_docs
+    rag_target: n8n_nodes_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+ai_docs:
+  - title: Integrate AI
+    url: https://docs.n8n.io/build/integrate-ai.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Understand AI Components
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: What Agents Do
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/what-agents-do.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: What Chains Do
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/what-chains-do.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: How Memory Works
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/how-memory-works.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: How Tools Work
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/how-tools-work.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Store And Search Data With Vectors
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/store-and-search-data-with-vectors.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Retrieve Relevant Context
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/retrieve-relevant-context.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Agents Vs Chains
+    url: https://docs.n8n.io/build/integrate-ai/understand-ai-components/agents-vs-chains.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: AI Agent Node
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Tools Agent
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/tools-agent.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: ReAct Agent
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/react-agent.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Chat Trigger Node
+    url: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Basic LLM Chain
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Question And Answer Chain
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainretrievalqa.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Information Extractor
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Summarization Chain
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainsummarization.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Text Classifier
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.text-classifier.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Sentiment Analysis
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.sentimentanalysis.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Embeddings OpenAI
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.embeddingsopenai.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Vector Store Retriever
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.retrievervectorstore.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Vector Store Question Answer Tool
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolvectorstore.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Simple Vector Store
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreinmemory.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Supabase Vector Store
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoresupabase.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Qdrant Vector Store
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreqdrant.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Pinecone Vector Store
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstorepinecone.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Redis Vector Store
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreredis.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Chat Memory Manager
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.memorymanager.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Simple Memory
+    url: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.memorybufferwindow.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Human In The Loop For Tools
+    url: https://docs.n8n.io/build/integrate-ai/ai-examples/human-in-the-loop-for-tools.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Human Fallback For AI Workflows
+    url: https://docs.n8n.io/build/integrate-ai/ai-examples/set-a-human-fallback-for-ai-workflows.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: AI Workflow Evaluations
+    url: https://docs.n8n.io/build/integrate-ai/test-and-improve-ai-workflows/understand-why-to-test.md
+    category: ai_docs
+    rag_target: n8n_ai_agents_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+workflow_json_docs:
+  - title: Export And Import Workflows
+    url: https://docs.n8n.io/build/manage-workflows/export-and-import.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: n8n Packages
+    url: https://docs.n8n.io/build/manage-workflows/n8n-packages.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Use Templates
+    url: https://docs.n8n.io/build/ways-of-building-workflows/use-templates.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: AI Workflow Builder
+    url: https://docs.n8n.io/build/ways-of-building-workflows/ai-workflow-builder.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Chat With Google Sheets Using AI
+    url: https://docs.n8n.io/build/integrate-ai/ai-examples/use-google-sheets-as-a-data-source.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: AI Call APIs Example
+    url: https://docs.n8n.io/build/integrate-ai/ai-examples/call-apis.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Website Content RAG Example
+    url: https://docs.n8n.io/build/integrate-ai/ai-examples/use-website-content.md
+    category: workflow_json_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+credentials_api_deployment_docs:
+  - title: HTTP Request Credentials
+    url: https://docs.n8n.io/integrations/builtin/credentials/httprequest.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Built In Credentials
+    url: https://docs.n8n.io/integrations/builtin/credentials.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Google OAuth2 Single Service
+    url: https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Google OAuth2 Generic
+    url: https://docs.n8n.io/integrations/builtin/credentials/google/oauth-generic.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: n8n API
+    url: https://docs.n8n.io/connect/n8n-api.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: n8n API Authentication
+    url: https://docs.n8n.io/connect/n8n-api/authentication.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_workflow_json_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Install With Docker
+    url: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Use Docker Compose
+    url: https://docs.n8n.io/deploy/host-n8n/install-options/use-a-cloud-provider/use-docker-compose.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Use Environment Variables
+    url: https://docs.n8n.io/deploy/host-n8n/configure-n8n/basic-configuration/use-environment-variables.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Environment Variables Credentials
+    url: https://docs.n8n.io/deploy/host-n8n/configure-n8n/basic-configuration/use-environment-variables/credentials.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Environment Variables Executions
+    url: https://docs.n8n.io/deploy/host-n8n/configure-n8n/basic-configuration/use-environment-variables/executions.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Environment Variables Queue Mode
+    url: https://docs.n8n.io/deploy/host-n8n/configure-n8n/basic-configuration/use-environment-variables/queue-mode.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Security
+    url: https://docs.n8n.io/deploy/host-n8n/configure-n8n/security.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Enable Queue Mode
+    url: https://docs.n8n.io/deploy/host-n8n/configure-n8n/scaling/enable-queue-mode.md
+    category: credentials_api_deployment_docs
+    rag_target: n8n_core_docs_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+beginner_docs:
+  - title: Build Your First Workflow
+    url: https://docs.n8n.io/build-your-first-workflow.md
+    category: beginner_docs
+    rag_target: n8n_beginner_instruction_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Learning Paths
+    url: https://docs.n8n.io/learning-paths.md
+    category: beginner_docs
+    rag_target: n8n_beginner_instruction_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Ways Of Building Workflows
+    url: https://docs.n8n.io/build/ways-of-building-workflows.md
+    category: beginner_docs
+    rag_target: n8n_beginner_instruction_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+
+  - title: Use AI Assistant Preview
+    url: https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant-preview.md
+    category: beginner_docs
+    rag_target: n8n_beginner_instruction_rag
+    priority: high
+    source_type: official_docs
+    last_checked:
+    enabled: true
+

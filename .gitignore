@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.DS_Store
+n8n_rag_system/data/

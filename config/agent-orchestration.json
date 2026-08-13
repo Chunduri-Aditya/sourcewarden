@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "primaryRole": "supervisor",
+  "maxConcurrentChildren": 3,
+  "roles": [
+    "supervisor",
+    "security_firewall",
+    "skeleton_architect",
+    "module_builder",
+    "deviation_monitor",
+    "eval_tuner"
+  ],
+  "stages": [
+    {
+      "name": "security_preflight",
+      "agents": ["security_firewall"],
+      "gate": "decision must be ALLOW or satisfied ALLOW_WITH_CONDITIONS"
+    },
+    {
+      "name": "skeleton_write",
+      "agents": ["skeleton_architect"],
+      "gate": "writer finalizes a handoff with assignment, baseline, and final snapshot IDs"
+    },
+    {
+      "name": "skeleton_review",
+      "agents": ["deviation_monitor", "security_firewall"],
+      "requiresFinalizedHandoffFrom": "skeleton_write",
+      "gate": "both reviews match the writer assignment and final snapshot; monitor is ALIGNED and security is not DENY"
+    },
+    {
+      "name": "module_write",
+      "agents": ["module_builder"],
+      "oneModuleBuilderPerModule": true,
+      "maxParallelModuleBuilders": 1,
+      "gate": "writer finalizes one module handoff with focused test evidence"
+    },
+    {
+      "name": "module_review",
+      "agents": ["deviation_monitor", "security_firewall"],
+      "requiresFinalizedHandoffFrom": "module_write",
+      "gate": "both reviews match the module assignment and final snapshot; ownership passes, monitor is ALIGNED, and security is not DENY"
+    },
+    {
+      "name": "generalized_tuning_write",
+      "agents": ["eval_tuner"],
+      "gate": "training results are recorded and the proposal is frozen before independent evaluation"
+    },
+    {
+      "name": "generalized_tuning_review",
+      "agents": ["deviation_monitor", "security_firewall"],
+      "requiresFinalizedHandoffFrom": "generalized_tuning_write",
+      "gate": "reviews match the frozen proposal snapshot; independent external validation and blind holdout do not regress and security expectations remain unchanged"
+    },
+    {
+      "name": "final_acceptance",
+      "agents": ["deviation_monitor", "security_firewall"],
+      "gate": "monitor reports ALIGNED, security reports ALLOW, and supervisor verifies all success criteria"
+    }
+  ],
+  "handoffRequiredFields": [
+    "assignmentId",
+    "agentInstanceId",
+    "baselineSnapshotId",
+    "finalSnapshotId",
+    "status",
+    "scopeCompleted",
+    "filesChanged",
+    "verificationEvidence",
+    "assumptions",
+    "risks",
+    "requestedNextAction"
+  ],
+  "bindingRules": {
+    "securityDenyBlocks": true,
+    "writerMustFinishBeforeReviewersStart": true,
+    "reviewAssignmentAndSnapshotMustMatch": true,
+    "staleReviewsAreInvalid": true,
+    "writersMustHaveDisjointPaths": true,
+    "moduleWorkersCannotChangeSharedContracts": true,
+    "monitorAndSecurityAreReadOnly": true,
+    "publishAndLiveExecutionRequireUserApproval": true,
+    "acceptanceRequiresMachineValidatedRunLedger": true
+  },
+  "runLedger": {
+    "pathPattern": "artifacts/agent-runs/<run-id>.json",
+    "validator": "node scripts/validate-agent-run.mjs <ledger-path>",
+    "version": 2,
+    "attestation": "external Ed25519 signature created by immutable tooling outside the workspace, verified by .codex/agent-ledger-public-key.pem, and matched to managed WORKFLOW_TRUST_ROOT_SHA256",
+    "snapshots": "complete file-hash maps with recomputed SHA-256 tree IDs",
+    "currentAcceptancePath": "artifacts/agent-runs/current.json",
+    "reviewsKeyedBy": ["assignmentId", "finalSnapshotId"],
+    "moduleOwnershipSource": "hash-bound config/module-manifest.json",
+    "independentEvaluation": "external-validation and blind-holdout reports are each Ed25519-signed and bound to the candidate snapshot and result-artifact hash",
+    "capabilityApprovals": "exact Code, Data Table, or Execute Workflow node type plus reviewed artifact hash, integrated snapshot, and explicit user approval",
+    "n8nMutations": "exact tool-input hashes, session ID, 15-minute lifetime, approval scope, and one-time nonces bound to the reviewed integrated snapshot"
+  }
+}

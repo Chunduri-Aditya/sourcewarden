@@ -62,3 +62,13 @@ n8n_beginner_instruction_rag:
     - workflow_steps
     - troubleshooting
 
+n8n_workflow_examples_rag:
+  purpose: Real community-contributed n8n workflow JSON exports (Zie619/n8n-workflows) used as citable example patterns, trigger/node combinations, and reference automations.
+  default_top_k: 5
+  priority_boost:
+    high: 0.15
+    medium: 0.07
+    low: 0.0
+  preferred_chunk_types:
+    - workflow_example
+

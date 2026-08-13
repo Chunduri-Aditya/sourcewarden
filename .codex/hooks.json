@@ -1,0 +1,30 @@
+{
+  "description": "Fail-closed completion scan executed from the sandbox-protected .codex directory. Hook commands use a fixed path relative to the project root the harness launches them from; they must never be resolved through a shell command that depends on the invoking process's cwd or git state, since that cwd can point inside a different (nested or attacker-planted) git repository and silently substitute a different script.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^mcp__n8n__(create_workflow_from_code|update_workflow|test_workflow|publish_workflow|unpublish_workflow|execute_workflow|archive_workflow)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env node .codex/hooks/n8n-mutation-gate.mjs",
+            "timeout": 30,
+            "statusMessage": "Checking exact n8n mutation against the signed run ledger"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env node .codex/hooks/security-gate.mjs --hook",
+            "timeout": 30,
+            "statusMessage": "Running n8n security completion gate"
+          }
+        ]
+      }
+    ]
+  }
+}

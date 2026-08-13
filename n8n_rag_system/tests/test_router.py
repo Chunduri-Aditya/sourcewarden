@@ -35,10 +35,15 @@ class RouterTests(unittest.TestCase):
             "Set up OAuth credentials": "credentials_auth",
             "Debug a failed execution": "debugging_error_handling",
             "Deploy n8n with Docker": "deployment_self_hosting",
+            "Show me an existing example workflow for this": "workflow_examples",
         }
         for query, intent in cases.items():
             with self.subTest(query=query):
                 self.assertIn(intent, detect_intents(query))
+
+    def test_router_selects_workflow_examples_rag_for_example_requests(self) -> None:
+        decision = RagRouter().route("Is there a real example workflow that already does this?")
+        self.assertIn("n8n_workflow_examples_rag", decision.selected_rags)
 
     def test_router_exposes_multi_queries(self) -> None:
         decision = RagRouter().route("Build an AI chatbot with Pinecone")

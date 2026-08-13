@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "assignmentId": "agent-reliability-tuning-proposal-20260725-01-r1",
+  "originalAssignmentId": "agent-reliability-tuning-proposal-20260725-01",
+  "runId": "agent-reliability-20260725-01",
+  "baselineSnapshotId": "prewrite-unversioned-workspace-20260725-agent-reliability-01",
+  "baselineSnapshotExternallyAttested": false,
+  "scope": "visible repository training data and current production agent definitions only",
+  "visibleBaselineScores": {
+    "behavioralCaseCountExecuted": 0,
+    "behavioralPassCount": null,
+    "behavioralPassRate": null,
+    "hardAssertionPassRate": null,
+    "reason": "No approved behavioral runner or externally signed evaluator evidence was available. Structural validation is not a behavioral score."
+  },
+  "observedEvidence": {
+    "agentSystemValidation": {
+      "command": "python3 scripts/validate-agent-system.py",
+      "valid": true,
+      "agentCount": 6,
+      "agents": [
+        "deviation_monitor",
+        "eval_tuner",
+        "module_builder",
+        "security_firewall",
+        "skeleton_architect",
+        "supervisor"
+      ],
+      "errorCount": 0
+    },
+    "generalizedDatasetValidation": {
+      "command": "node scripts/validate-generalized-evals.mjs",
+      "valid": true,
+      "mode": "repository",
+      "caseCount": 74,
+      "splits": [
+        "train"
+      ],
+      "errorCount": 0,
+      "categories": [
+        "ambiguity",
+        "concurrency",
+        "destructive_action",
+        "eval_tuning",
+        "module_ownership",
+        "ordinary_build",
+        "policy_override",
+        "prompt_injection",
+        "reversible_assumption",
+        "risky_capability",
+        "schema_hallucination",
+        "secret_request",
+        "surgical_edit"
+      ]
+    },
+    "selfTestEvidence": {
+      "available": false,
+      "reason": "No role-execution self-test runner or signed event log was present in the bounded assignment."
+    }
+  },
+  "coverageGapAnalysis": [
+    {
+      "cluster": "planning_and_ambiguity",
+      "baselineGap": "No required role-responsibility/reliability matrix assigns every applicable reliability dimension to an owner and evidence source."
+    },
+    {
+      "cluster": "schema_and_structured_validation",
+      "baselineGap": "Exact-schema policy exists at project level, but current role instructions do not consistently bind schema, credential type, resource grounding, deterministic validation, and success guards across planning, contracts, implementation, and review."
+    },
+    {
+      "cluster": "identity_idempotency_and_concurrency",
+      "baselineGap": "Current role instructions do not explicitly require stable item identity, operation-specific idempotency, atomic deduplication, duplicate/replay tests, or provider concurrency limits."
+    },
+    {
+      "cluster": "retry_and_failure_semantics",
+      "baselineGap": "Current role instructions do not allocate retry eligibility, bounded backoff/jitter, retry exhaustion, distinct success/error paths, or exact version-sensitive Error Trigger semantics."
+    },
+    {
+      "cluster": "side_effect_truth_and_recovery",
+      "baselineGap": "Current role instructions do not require independent postcondition oracles, side-effect state machines, or reconciliation before replay after partial or uncertain commits."
+    },
+    {
+      "cluster": "credentials_privacy_and_observability",
+      "baselineGap": "Secret handling is strong, but data classification, structured redacted telemetry, retention, alert deduplication/rate limits, handler recursion, and handler-failure tests are not systematically assigned."
+    },
+    {
+      "cluster": "eval_evidence",
+      "baselineGap": "The tuner protects private-suite separation but does not explicitly distinguish static coverage from behavioral scoring across each reliability dimension."
+    }
+  ],
+  "dataSeparation": {
+    "externalValidationMountedOrAccessed": false,
+    "blindHoldoutMountedOrAccessed": false,
+    "privatePromptsFixturesExpectedAnswersOrPerCaseOutcomesRequested": false
+  },
+  "limitations": [
+    "The baseline snapshot is not externally attested.",
+    "No visible behavioral cases were executed.",
+    "No external-validation, blind-holdout, signed-ledger, or trusted-integrator evidence is included.",
+    "No score is inferred from keyword presence or structural validation."
+  ]
+}

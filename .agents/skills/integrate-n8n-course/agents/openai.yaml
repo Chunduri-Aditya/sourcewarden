@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integrate n8n Course Knowledge"
+  short_description: "Turn lecture transcripts into durable n8n guidance"
+  default_prompt: "Use $integrate-n8n-course to ingest this lecture transcript and integrate its lessons into the project."

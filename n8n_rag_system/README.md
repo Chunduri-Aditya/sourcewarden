@@ -2,13 +2,14 @@
 
 This is a self-contained multi-RAG system for an n8n Workflow Instruction Agent. It converts messy human tasks into beginner-friendly, source-cited n8n workflow build plans with exact trigger, node order, settings, credentials, expressions, data mapping, testing, error handling, assumptions, design decisions, and source citations.
 
-The system uses five separate RAG indexes:
+The system uses six separate RAG indexes:
 
 - `n8n_core_docs_rag`: workflows, executions, credentials, expressions, data structure, item linking, flow logic, debugging, deployment, and security.
 - `n8n_nodes_rag`: core nodes, trigger nodes, HTTP Request, Webhook, Respond to Webhook, Code, Edit Fields, IF, Switch, Merge, loop, Wait, file nodes, and n8n node docs.
 - `n8n_ai_agents_rag`: AI Agent, chains, RAG, vector stores, embeddings, memory, human fallback, human-in-the-loop, and evaluations.
 - `n8n_workflow_json_rag`: workflow JSON, export/import, n8n API, templates, examples, and reusable workflow blueprints.
 - `n8n_beginner_instruction_rag`: beginner workflow concepts, simple explanations, checklists, and testing guidance.
+- `n8n_workflow_examples_rag`: real community-contributed workflow JSON exports cloned locally from [Zie619/n8n-workflows](https://github.com/Zie619/n8n-workflows), retrievable as citable example patterns (trigger types, node combinations) rather than official docs.
 
 ## Architecture
 
@@ -22,6 +23,7 @@ The system uses five separate RAG indexes:
 8. `RagRetriever` runs multi-query retrieval, boosts source priority and headings, deduplicates chunks, and returns citation metadata.
 9. `PromptBuilder` creates an LLM-ready prompt that separates retrieved facts, assumptions, design decisions, and user requirements.
 10. `WorkflowInstructionGenerator` creates a deterministic validated build plan for local testing or fallback operation.
+11. `src/workflow_examples.py` parses a local clone of [Zie619/n8n-workflows](https://github.com/Zie619/n8n-workflows) into one chunk per workflow (name, description, trigger types, node types), indexed into `n8n_workflow_examples_rag` and cited with links back to the source file on GitHub.
 
 ## Install
 
@@ -77,11 +79,19 @@ Chunk docs and inspect stats:
 python scripts/03_chunk_docs.py --stats
 ```
 
-Build all five indexes:
+Build all five doc-based indexes:
 
 ```bash
 python scripts/04_build_indexes.py --reset
 ```
+
+Clone (or refresh) [Zie619/n8n-workflows](https://github.com/Zie619/n8n-workflows) locally and build the sixth index, `n8n_workflow_examples_rag`, from its real workflow JSON exports:
+
+```bash
+python scripts/09_ingest_workflow_examples.py --reset
+```
+
+The clone lands in `data/raw/n8n-workflows/` (gitignored, ~2,000 workflow JSON files). Use `--skip-clone` to re-index an existing local clone without touching git, or `--limit N` to test against a subset.
 
 Query:
 
@@ -171,6 +181,19 @@ prompt = generator.build_llm_prompt(
 
 Send `prompt` to your LLM, then validate that the answer keeps every required section, cites retrieved sources, and separates source-grounded facts from assumptions and design decisions.
 
+## Use From The Merged Workflow System
+
+From the repository root, retrieve a bounded planning context with explicit evidence authority labels:
+
+```bash
+python3 scripts/retrieve-rag-context.py \
+  --query "Build a webhook that validates input and returns the weather" \
+  --top-k 5 \
+  --pretty
+```
+
+The adapter returns selected RAGs, router reasoning, citation-ready evidence, and the authority order used by the workflow agent. Live target-instance schemas still override documentation and community examples for exact node parameters.
+
 ## Limitations
 
 - Hash embeddings are a fallback, not the best retrieval quality. Use OpenAI or sentence-transformers for production.
@@ -178,4 +201,3 @@ Send `prompt` to your LLM, then validate that the answer keeps every required se
 - Generated workflow JSON blueprints must still be import-tested in n8n.
 - Some official docs pages are short; chunk averages may stay below the nominal 800-1200 token target even with section merging.
 - Exact app field names must be confirmed from real node output in the user’s n8n workspace.
-

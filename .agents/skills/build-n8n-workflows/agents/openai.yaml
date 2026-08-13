@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build n8n Workflows"
+  short_description: "Plan, build, validate, and test n8n workflows"
+  default_prompt: "Use $build-n8n-workflows to plan and build this automation as a validated n8n workflow."

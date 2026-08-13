@@ -1,6 +1,14 @@
+.DS_Store
+.env
+.env.*
+!.env.example
 __pycache__/
 *.pyc
+.pytest_cache/
 .venv/
-.env
-.DS_Store
 n8n_rag_system/data/
+
+# Private course source material. Commit only paraphrased skill references.
+knowledge/course-transcripts/inbox/
+knowledge/course-transcripts/raw/
+knowledge/course-transcripts/metadata/

@@ -12,6 +12,10 @@ RAG_PURPOSES = {
     "n8n_ai_agents_rag": "AI Agent, RAG, vector stores, LangChain concepts, memory, and human fallback",
     "n8n_workflow_json_rag": "workflow JSON, export/import, workflow templates, and reusable blueprints",
     "n8n_beginner_instruction_rag": "simple English explanations, common mistakes, test steps, and checklists",
+    "n8n_workflow_examples_rag": (
+        "real community-contributed example workflows: trigger types, node combinations, and "
+        "patterns pulled from actual n8n JSON exports"
+    ),
 }
 
 INTENT_RULES = {
@@ -112,6 +116,19 @@ INTENT_RULES = {
         "memory",
     ],
     "workflow_json_import_export": ["workflow json", "json", "export", "import", "blueprint", "template", "templates"],
+    "workflow_examples": [
+        "example",
+        "examples",
+        "similar workflow",
+        "existing workflow",
+        "real workflow",
+        "sample workflow",
+        "community workflow",
+        "reference workflow",
+        "workflow like",
+        "already built",
+        "someone already made",
+    ],
     "credentials_auth": [
         "credential",
         "credentials",
@@ -159,8 +176,12 @@ class RagRouter:
         intents = detect_intents(query)
 
         if "workflow_json_import_export" in intents:
-            selected.extend(["n8n_workflow_json_rag", "n8n_nodes_rag", "n8n_core_docs_rag"])
+            selected.extend(["n8n_workflow_json_rag", "n8n_nodes_rag", "n8n_core_docs_rag", "n8n_workflow_examples_rag"])
             reasons.append("workflow JSON, export/import, or blueprint language was detected")
+
+        if "workflow_examples" in intents:
+            selected.append("n8n_workflow_examples_rag")
+            reasons.append("a request for an existing or similar real-world workflow example was detected")
 
         if "ai_agent" in intents:
             selected.extend(["n8n_ai_agents_rag", "n8n_nodes_rag"])
@@ -193,7 +214,15 @@ class RagRouter:
             reasons.append("deployment, self-hosting, Docker, environment variable, queue mode, or security language was detected")
 
         if "workflow_build_plan" in intents:
-            selected.extend(["n8n_workflow_json_rag", "n8n_nodes_rag", "n8n_core_docs_rag", "n8n_beginner_instruction_rag"])
+            selected.extend(
+                [
+                    "n8n_workflow_json_rag",
+                    "n8n_nodes_rag",
+                    "n8n_core_docs_rag",
+                    "n8n_beginner_instruction_rag",
+                    "n8n_workflow_examples_rag",
+                ]
+            )
             if "ai_agent" in intents or "rag_vector_store" in intents:
                 selected.append("n8n_ai_agents_rag")
             if _has_any(lowered, ["json", "template", "blueprint", "import", "export", "webhook", "api", "form", "notion", "sheets", "slack", "gmail"]):
@@ -264,6 +293,7 @@ def _order_rags(rags: list[str]) -> list[str]:
     order = [
         "n8n_ai_agents_rag",
         "n8n_workflow_json_rag",
+        "n8n_workflow_examples_rag",
         "n8n_nodes_rag",
         "n8n_beginner_instruction_rag",
         "n8n_core_docs_rag",
@@ -271,6 +301,7 @@ def _order_rags(rags: list[str]) -> list[str]:
     if "n8n_workflow_json_rag" in rags and "n8n_ai_agents_rag" not in rags:
         order = [
             "n8n_workflow_json_rag",
+            "n8n_workflow_examples_rag",
             "n8n_nodes_rag",
             "n8n_core_docs_rag",
             "n8n_beginner_instruction_rag",
@@ -278,6 +309,7 @@ def _order_rags(rags: list[str]) -> list[str]:
     if "n8n_ai_agents_rag" in rags and "n8n_workflow_json_rag" not in rags:
         order = [
             "n8n_ai_agents_rag",
+            "n8n_workflow_examples_rag",
             "n8n_core_docs_rag",
             "n8n_nodes_rag",
             "n8n_beginner_instruction_rag",

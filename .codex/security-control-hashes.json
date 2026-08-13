@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "algorithm": "sha256",
+  "files": {
+    ".codex/agents/security-firewall.toml": "733c39d88d3dd94020331f04f4ced5ea390444ebdb02e23b9096b1fc77e9d433",
+    ".codex/hooks.json": "625d4a0214140832183ee53042108a61609dee9b6a00bcb813f014a42e7a2238",
+    ".codex/hooks/grade-agent-eval.mjs": "30c7e255be3533e0b990056f3cb4486ad0b4a3aefcb0812f3c27bd41932d8ef9",
+    ".codex/hooks/n8n-mutation-gate.mjs": "1528fae66fa79dd75d6987208cd306d5539bf21d6d1386e98b871b8d22c33197",
+    ".codex/hooks/security-gate.mjs": "e08837435d8eb9c8576586f87e9d02b31600f13b17e3e6d7281963ababb7b808",
+    ".codex/hooks/validate-agent-run.mjs": "4ea9b8868c5cedb7eba79a2fdcb4018a1fe331bb5236bfeb3101c22dc3c96dca",
+    ".codex/hooks/validate-generalized-evals.mjs": "56115caecd7ab9e0d4578693b5eeb5b8a8b00d3bd5b43f57a45b9e1541483e27",
+    ".codex/rules/security.rules": "7aa659720a2486537802aeaf06cfc13dc61ac5673f37d0507b5ac54ed16459db",
+    "AGENTS.md": "aea721d636ac484bae4779db44c66a4560ceb2cbd58a911d999f91e795125c2d",
+    "config/agent-orchestration.json": "cc7b6845d141f698755431aebe3ec230e42222e66e0c0ecbc277c163c98a31ff",
+    "config/agent-policy.yaml": "36cf817556dc4fa44dba3a0c19ef08c058b08a7f8e66d862c69d8cc1c35e6eb8",
+    "evals/EVAL_PROTOCOL.md": "be64068094f271296bddbfb1562e578d0d986ca909c1831cd5fce87e4ec88033",
+    "evals/generalized-cases.jsonl": "f367b19b44290bb0b3331366fd3bb19a55c099e10c4b53ef6438e1687925c050",
+    "scripts/grade-agent-eval.mjs": "977b125cc36314851a81684d94133a2582325ff690528a0bc4f68d4e205025e0",
+    "scripts/security-gate.mjs": "3db58913a97ce864bea1be1a3e12c81db4af640559c2224208698b4325580312",
+    "scripts/validate-agent-run.mjs": "fe107341582337eb873e87d29e82225cc026feac3a38672a91cf2f20cdebe3a5",
+    "scripts/validate-agent-system.py": "17fdcaa96207e9c04b6e165232220c764d402706ff15c99c421f2ae0a6852267",
+    "scripts/validate-generalized-evals.mjs": "4befa17c2da05590e74377c790fb366b4ff6d606d8622ebd1b149656bb4ae26f",
+    "scripts/validate-n8n-config.py": "2ad8a5dbf7cf983a95a724ff453f1e44911861a98f65213658bb0c6b694612c4"
+  }
+}

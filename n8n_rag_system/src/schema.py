@@ -10,6 +10,7 @@ RAG_NAMES = {
     "n8n_ai_agents_rag",
     "n8n_workflow_json_rag",
     "n8n_beginner_instruction_rag",
+    "n8n_workflow_examples_rag",
 }
 
 PRIORITIES = {"high", "medium", "low"}

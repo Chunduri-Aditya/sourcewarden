@@ -12,3 +12,6 @@ n8n_rag_system/data/
 knowledge/course-transcripts/inbox/
 knowledge/course-transcripts/raw/
 knowledge/course-transcripts/metadata/
+
+# Untrusted local self-improvement signals. Curate separately before training.
+evals/feedback/inbox/

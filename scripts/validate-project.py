@@ -10,6 +10,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 CHECKS = [
     (
+        "Self improvement adversarial tests",
+        [sys.executable, "-B", "-m", "unittest", "discover", "-s", "tests/self_improvement", "-v"],
+        ROOT,
+    ),
+    (
         "RAG unit tests",
         [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
         ROOT / "n8n_rag_system",

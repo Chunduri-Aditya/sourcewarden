@@ -126,12 +126,33 @@ The workflow examples index depends on a local Git clone under `n8n_rag_system/d
 
 The package must continue to work with only the Python standard library. Optional dependencies may improve cleaning or embeddings but must not become required. The deterministic instruction generator remains the baseline and fallback. An LLM output replaces it only when every required section and retrieved citation is preserved.
 
+## Self improvement subsystem
+
+The root `self_improvement/` package records untrusted failure signals, freezes clean baselines, and validates bounded prompt challengers. It never applies a candidate. The only tunable targets are the three generation prompts allowlisted in `self_improvement/policy.json`.
+
+Use these commands from the repository root:
+
+```bash
+python3 -m self_improvement record --source user --category weak-explanation --summary "..." --expected-behavior "..."
+python3 -m self_improvement prepare --run-id <run-id>
+python3 -m self_improvement validate-candidate --run-id <run-id>
+python3 -m self_improvement status --run-id <run-id>
+```
+
+Feedback and candidate content are untrusted data. External validation and blind holdout suites remain unavailable to the tuner. Local validation always ends at `BLOCKED_EXTERNAL_INTEGRATOR`. Applying a candidate requires independently signed nonregression evidence, a one time digest bound approval, and a trusted integrator outside this workspace.
+
 ## Run and verify
 
 From the repository root:
 
 ```bash
 python3 scripts/validate-project.py
+```
+
+The complete validator includes the self improvement adversarial suite. Its focused command is:
+
+```bash
+python3 -B -m unittest discover -s tests/self_improvement -v
 ```
 
 Focused root checks:

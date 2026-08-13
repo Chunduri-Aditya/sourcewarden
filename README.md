@@ -7,6 +7,7 @@ This repository combines the source-cited multi-RAG workflow builder with the pl
 | Workflow engineering | repository root | Plans, agent roles, policy, security gates, evaluations, and generated workflow JSON |
 | Retrieval and citations | `n8n_rag_system/` | Official documentation, node guidance, community examples, routing, citations, and deterministic fallback planning |
 | Integration adapter | `scripts/retrieve-rag-context.py` | Bounded JSON evidence for every non-trivial workflow plan |
+| Self improvement | `self_improvement/` | Untrusted feedback capture, clean baseline freezing, and fail closed prompt challenger assessment |
 
 Evidence has one explicit precedence order: live target-instance schemas, official documentation, community workflow examples, then untrusted course references. Documentation and examples inform the plan but never prove an exact node parameter for the target instance.
 
@@ -120,6 +121,35 @@ node .agents/skills/build-n8n-workflows/scripts/validate-plan.mjs --ready plans/
 ```
 
 The final handoff includes the workflow link or JSON, required credentials, assumptions, test fixtures, validation results, and any remaining approval gates.
+
+## Self improvement
+
+The project can learn from recorded failure signals and assess a revised prompt candidate. It cannot silently rewrite its production behavior. The local loop always stops at `BLOCKED_EXTERNAL_INTEGRATOR`, even when evidence and approval files are present. Signed evaluation, explicit approval, and the separate trusted integrator are all required for application.
+
+Record a failure signal:
+
+```bash
+python3 -m self_improvement record \
+  --source user \
+  --category weak-explanation \
+  --summary "The plan did not explain retry exhaustion." \
+  --expected-behavior "Explain retry limits and the terminal failure path."
+```
+
+From a clean Git worktree, freeze a baseline and initialize a proposal directory:
+
+```bash
+python3 -m self_improvement prepare --run-id retry-guidance-001
+```
+
+The tuner places only allowlisted prompt candidates and exact metric bindings under the generated run directories. Assess them locally with:
+
+```bash
+python3 -m self_improvement validate-candidate --run-id retry-guidance-001
+python3 -m self_improvement status --run-id retry-guidance-001
+```
+
+Local assessment verifies strict schemas, paths, hashes, rollback metadata, and deterministic baseline versus candidate metrics. It does not verify Ed25519 signatures, consume approval, apply prompt bytes, call n8n, or execute candidate content. Those actions belong to a trusted external evaluator and integrator.
 
 Validate the agent system and generalized eval data with:
 

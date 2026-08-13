@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "modules": [
+    {
+      "name": "self_improvement",
+      "ownedPaths": [
+        "self_improvement/",
+        "tests/self_improvement/"
+      ],
+      "interface": {
+        "entryPoint": "python3 -m self_improvement",
+        "commands": [
+          "record",
+          "prepare",
+          "validate-candidate",
+          "status"
+        ],
+        "contract": "docs/self-improvement-contract.md",
+        "promotionStatus": "BLOCKED_EXTERNAL_INTEGRATOR"
+      },
+      "dependencies": [
+        "python-standard-library"
+      ],
+      "successCriteria": [
+        "record creates one closed-schema untrusted signal with exclusive file creation",
+        "prepare freezes a clean baseline and target hashes",
+        "validate-candidate fails closed on every contract violation and never applies bytes",
+        "status is read-only and always exposes external integration blockers",
+        "all adversarial fixtures pass"
+      ],
+      "testCommand": "python3 -m unittest discover -s tests/self_improvement -v"
+    }
+  ]
+}

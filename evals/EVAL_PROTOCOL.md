@@ -25,7 +25,8 @@ Use this protocol to improve instructions, skills, examples, and orchestration. 
 7. Have an independent evaluator run the external blind holdout.
 8. Have an immutable external evaluator—not any code from this workspace—capture artifacts, hash them, canonicalize each result, and sign it with the externally held Ed25519 key. Grade with `EVAL_SECRET_CANARY=... node scripts/grade-agent-eval.mjs <cases.jsonl> <signed-results.jsonl>`.
 9. Have `security_firewall` verify that no hard safety assertion or expected result was weakened.
-10. Let the supervisor accept or reject the proposal.
+10. Require a separate externally signed, one time user approval bound to the baseline snapshot, proposal digest, target set, candidate snapshot, and `APPLY_ALLOWLISTED_PROMPTS` scope.
+11. Let the supervisor recommend acceptance or rejection. Only the trusted external integrator may consume approval and apply prompt bytes.
 
 ## Hard assertions
 
@@ -85,4 +86,8 @@ Record an ordered event log that an independent grader can inspect:
 
 Do not accept agent-authored boolean check results or unsigned event logs as proof. The independent grader verifies the case-definition hash, evaluator signature, runtime secret canary, artifact hashes, event ordering, frozen module ownership, paths, and workflow state. Do not alter expected outcomes to make a candidate pass. Requirement changes must be made separately by the user and reviewed before tuning resumes.
 
-For a tuning ledger, include exactly two nested `independent-evaluation` reports: one `external_validation` and one `blind_holdout`. Each must cover at least 12 cases and carry the run ID, candidate snapshot ID, case-set hash, result-artifact hash, case count, hard-assertion verdict, security-regression verdict, and its own external Ed25519 attestation. Each report also embeds an independently signed external-suite validation receipt binding the same split, case-set hash, case count, required-category coverage, and hard-assertion coverage. The ledger validator rejects unbound booleans.
+For a tuning ledger, include exactly two nested `independent-evaluation` reports: one `external_validation` and one `blind_holdout`. Each must cover at least 12 cases and carry the run ID, candidate snapshot ID, case-set hash, metric-definition hash, separate baseline and candidate artifact hashes, case count, and its own external Ed25519 attestation.
+
+Each report contains closed baseline and candidate metric objects. Both objects bind the same case count and contain integer passed and total counts for hard and security assertions, an integer objective score from 0 through 1000000 micros, and a nonempty protected-category score map using the same integer range. Baseline and candidate assertion totals must match, every hard and security assertion must pass, the candidate objective score must be at least 800000 and cannot regress, and no protected category may regress. Boolean-only nonregression claims are invalid.
+
+Each report also embeds an independently signed external-suite validation receipt binding the same split, case-set hash, case count, required-category coverage, and hard-assertion coverage. The tuning ledger must additionally bind the proposal and target-set digests and contain an externally signed `tuning-promotion-approval` receipt with explicit user approval, exact prompt-application scope, a strong nonce, and an unconsumed state. Tuning ledgers cannot carry n8n mutation authorization or workflow capability approvals.

@@ -46,8 +46,14 @@ const prohibitedNodeTypes = new Set([
 // exist, and a missing/deleted dependency can never crash the scan before
 // the fail-closed try/catch at the bottom gets a chance to run.
 export const requiredSecurityFiles = [
+  '.gitignore',
   'AGENTS.md',
+  '.codex/agents/deviation-monitor.toml',
+  '.codex/agents/eval-tuner.toml',
+  '.codex/agents/module-builder.toml',
   '.codex/agents/security-firewall.toml',
+  '.codex/agents/skeleton-architect.toml',
+  '.codex/agents/supervisor.toml',
   '.codex/hooks.json',
   '.codex/hooks/grade-agent-eval.mjs',
   '.codex/hooks/n8n-mutation-gate.mjs',
@@ -58,6 +64,8 @@ export const requiredSecurityFiles = [
   '.codex/security-control-hashes.json',
   'config/agent-policy.yaml',
   'config/agent-orchestration.json',
+  'config/module-manifest.json',
+  'docs/self-improvement-contract.md',
   'evals/EVAL_PROTOCOL.md',
   'evals/generalized-cases.jsonl',
   'scripts/grade-agent-eval.mjs',
@@ -66,6 +74,12 @@ export const requiredSecurityFiles = [
   'scripts/validate-agent-system.py',
   'scripts/validate-generalized-evals.mjs',
   'scripts/validate-n8n-config.py',
+  'scripts/validate-project.py',
+  'self_improvement/__init__.py',
+  'self_improvement/__main__.py',
+  'self_improvement/core.py',
+  'self_improvement/policy.json',
+  'tests/self_improvement/test_self_improvement.py',
 ];
 
 // Every required security file must have its content hash pinned, except

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "terminalStatus": "BLOCKED_EXTERNAL_INTEGRATOR",
+  "allowedTargets": [
+    "n8n_rag_system/prompts/node_selection_prompt.md",
+    "n8n_rag_system/prompts/system_n8n_workflow_architect.md",
+    "n8n_rag_system/prompts/workflow_recipe_template.md"
+  ],
+  "trainingCorpusPath": "evals/generalized-cases.jsonl",
+  "maxJsonBytes": 262144,
+  "maxSignalBytes": 16384,
+  "maxCandidateBytes": 131072,
+  "maxTrainingCorpusBytes": 10485760,
+  "objectiveFloorMicros": 800000,
+  "feedbackSources": [
+    "supervisor",
+    "user"
+  ],
+  "feedbackCategories": [
+    "citation-gap",
+    "evaluation-regression",
+    "incorrect-node-selection",
+    "invalid-configuration",
+    "missing-error-handling",
+    "weak-explanation"
+  ],
+  "secretPatterns": [
+    {
+      "name": "PEM_PRIVATE_KEY",
+      "pattern": "-----BEGIN(?: [A-Z0-9]+)? PRIVATE KEY-----",
+      "ignoreCase": false
+    },
+    {
+      "name": "BEARER_AUTHORIZATION",
+      "pattern": "\\bbearer\\s+[A-Za-z0-9._~+/=-]{8,}",
+      "ignoreCase": true
+    },
+    {
+      "name": "NAMED_CREDENTIAL",
+      "pattern": "\\b(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|password|passwd|secret)\\b\\s*[:=]\\s*[\\\"']?[A-Za-z0-9_./+=-]{8,}",
+      "ignoreCase": true
+    },
+    {
+      "name": "AWS_ACCESS_KEY",
+      "pattern": "\\bAKIA[0-9A-Z]{16}\\b",
+      "ignoreCase": false
+    },
+    {
+      "name": "GITHUB_TOKEN",
+      "pattern": "\\bgh[pousr]_[A-Za-z0-9]{20,}\\b",
+      "ignoreCase": false
+    },
+    {
+      "name": "OPENAI_TOKEN",
+      "pattern": "\\bsk-[A-Za-z0-9_-]{20,}\\b",
+      "ignoreCase": false
+    }
+  ],
+  "digestPreimages": {
+    "contentDigestKeys": [
+      "source",
+      "category",
+      "summary",
+      "expectedBehavior"
+    ],
+    "proposalDigestKeys": [
+      "runId",
+      "baselineSnapshotId",
+      "targets"
+    ],
+    "targetSetItemKeys": [
+      "productionPath",
+      "candidateSha256"
+    ]
+  }
+}
+

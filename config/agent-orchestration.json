@@ -43,13 +43,13 @@
     {
       "name": "generalized_tuning_write",
       "agents": ["eval_tuner"],
-      "gate": "training results are recorded and the proposal is frozen before independent evaluation"
+      "gate": "visible training metrics are recorded, the prompt-only proposal manifest is frozen, and local status remains BLOCKED_EXTERNAL_INTEGRATOR"
     },
     {
       "name": "generalized_tuning_review",
       "agents": ["deviation_monitor", "security_firewall"],
       "requiresFinalizedHandoffFrom": "generalized_tuning_write",
-      "gate": "reviews match the frozen proposal snapshot; independent external validation and blind holdout do not regress and security expectations remain unchanged"
+      "gate": "reviews match the frozen proposal snapshot; signed baseline and candidate metrics from independent external validation and blind holdout do not regress; explicit digest-bound approval remains external"
     },
     {
       "name": "final_acceptance",
@@ -90,7 +90,8 @@
     "currentAcceptancePath": "artifacts/agent-runs/current.json",
     "reviewsKeyedBy": ["assignmentId", "finalSnapshotId"],
     "moduleOwnershipSource": "hash-bound config/module-manifest.json",
-    "independentEvaluation": "external-validation and blind-holdout reports are each Ed25519-signed and bound to the candidate snapshot and result-artifact hash",
+    "independentEvaluation": "external-validation and blind-holdout reports are each Ed25519-signed, bind baseline and candidate artifact hashes, and carry deterministic integer metrics with no hard, security, objective, or protected-category regression",
+    "tuningApproval": "a separate Ed25519-signed one-time approval binds the baseline, candidate snapshot, proposal digest, target set, scope, nonce, and unconsumed state; only the external integrator consumes it",
     "capabilityApprovals": "exact Code, Data Table, or Execute Workflow node type plus reviewed artifact hash, integrated snapshot, and explicit user approval",
     "n8nMutations": "exact tool-input hashes, session ID, 15-minute lifetime, approval scope, and one-time nonces bound to the reviewed integrated snapshot"
   }

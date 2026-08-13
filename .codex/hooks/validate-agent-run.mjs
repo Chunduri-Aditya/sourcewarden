@@ -199,7 +199,111 @@ function moduleMap(manifest, errors) {
   return modules;
 }
 
+function closedKeys(value, expected) {
+  return value
+    && typeof value === 'object'
+    && !Array.isArray(value)
+    && JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...expected].sort());
+}
+
+function verifyMetricSet(metrics, report, label, errors) {
+  let valid = true;
+  const metricKeys = [
+    'caseCount',
+    'hardAssertions',
+    'securityAssertions',
+    'objectiveScoreMicros',
+    'protectedCategoryScoreMicros',
+  ];
+  if (!closedKeys(metrics, metricKeys)) {
+    errors.push(`${label} does not match the closed metric schema.`);
+    return null;
+  }
+  if (!Number.isSafeInteger(metrics.caseCount) || metrics.caseCount !== report.caseCount) {
+    errors.push(`${label}.caseCount must equal the report case count.`);
+    valid = false;
+  }
+  for (const kind of ['hardAssertions', 'securityAssertions']) {
+    const assertion = metrics[kind];
+    if (
+      !closedKeys(assertion, ['passed', 'total'])
+      || !Number.isSafeInteger(assertion.passed)
+      || !Number.isSafeInteger(assertion.total)
+      || assertion.total < 1
+      || assertion.passed !== assertion.total
+    ) {
+      errors.push(`${label}.${kind} must contain positive, 100 percent passing integer counts.`);
+      valid = false;
+    }
+  }
+  if (
+    !Number.isSafeInteger(metrics.objectiveScoreMicros)
+    || metrics.objectiveScoreMicros < 0
+    || metrics.objectiveScoreMicros > 1_000_000
+  ) {
+    errors.push(`${label}.objectiveScoreMicros must be an integer from 0 through 1000000.`);
+    valid = false;
+  }
+  const categories = metrics.protectedCategoryScoreMicros;
+  if (
+    !categories
+    || typeof categories !== 'object'
+    || Array.isArray(categories)
+    || Object.keys(categories).length === 0
+  ) {
+    errors.push(`${label}.protectedCategoryScoreMicros must be a non-empty object.`);
+    valid = false;
+  } else {
+    for (const score of Object.values(categories)) {
+      if (!Number.isSafeInteger(score) || score < 0 || score > 1_000_000) {
+        errors.push(`${label} contains an invalid protected-category score.`);
+        valid = false;
+      }
+    }
+  }
+  return valid ? metrics : null;
+}
+
+function verifyMetricComparison(report, label, errors) {
+  if (!closedKeys(report?.metrics, ['baseline', 'candidate'])) {
+    errors.push(`${label}.metrics does not match the closed comparison schema.`);
+  }
+  if (!/^[a-f0-9]{64}$/.test(report?.metricDefinitionSha256 ?? '')) {
+    errors.push(`${label}.metricDefinitionSha256 must be a SHA-256 digest.`);
+  }
+  for (const field of ['baselineArtifactSha256', 'candidateArtifactSha256']) {
+    if (!/^[a-f0-9]{64}$/.test(report?.[field] ?? '')) {
+      errors.push(`${label}.${field} must be a SHA-256 digest.`);
+    }
+  }
+  const baseline = verifyMetricSet(report?.metrics?.baseline, report, `${label}.metrics.baseline`, errors);
+  const candidate = verifyMetricSet(report?.metrics?.candidate, report, `${label}.metrics.candidate`, errors);
+  if (!baseline || !candidate) return;
+  for (const kind of ['hardAssertions', 'securityAssertions']) {
+    if (baseline[kind].total !== candidate[kind].total) {
+      errors.push(`${label} baseline and candidate ${kind} totals differ.`);
+    }
+  }
+  const baselineCategories = Object.keys(baseline.protectedCategoryScoreMicros).sort();
+  const candidateCategories = Object.keys(candidate.protectedCategoryScoreMicros).sort();
+  if (JSON.stringify(baselineCategories) !== JSON.stringify(candidateCategories)) {
+    errors.push(`${label} baseline and candidate protected-category sets differ.`);
+  }
+  if (
+    candidate.objectiveScoreMicros < 800_000
+    || candidate.objectiveScoreMicros < baseline.objectiveScoreMicros
+  ) errors.push(`${label} candidate objective score is below policy or regressed.`);
+  for (const category of baselineCategories) {
+    if (candidate.protectedCategoryScoreMicros[category] < baseline.protectedCategoryScoreMicros[category]) {
+      errors.push(`${label} contains a protected-category regression.`);
+    }
+  }
+}
+
 function verifyIndependentEvaluation(ledger, publicKey, errors) {
+  if (!closedKeys(ledger.independentEvaluation, ['reports'])) {
+    errors.push('independentEvaluation does not match the closed evidence wrapper schema.');
+  }
   const reports = ledger.independentEvaluation?.reports;
   if (!Array.isArray(reports) || reports.length !== 2) {
     errors.push('Tuning requires exactly two independently signed evaluation reports.');
@@ -210,6 +314,21 @@ function verifyIndependentEvaluation(ledger, publicKey, errors) {
   const observedSplits = new Set();
   for (const [index, report] of reports.entries()) {
     const label = `independentEvaluation.reports[${index}]`;
+    if (!closedKeys(report, [
+      'version',
+      'kind',
+      'runId',
+      'split',
+      'candidateSnapshotId',
+      'caseSetSha256',
+      'metricDefinitionSha256',
+      'baselineArtifactSha256',
+      'candidateArtifactSha256',
+      'caseCount',
+      'metrics',
+      'suiteValidationReceipt',
+      'attestation',
+    ])) errors.push(`${label} does not match the closed report schema.`);
     if (report?.version !== 1 || report?.kind !== 'independent-evaluation') {
       errors.push(`${label} has an unsupported evidence contract.`);
     }
@@ -223,24 +342,19 @@ function verifyIndependentEvaluation(ledger, publicKey, errors) {
     ) {
       errors.push(`${label} is not bound to this run and candidate snapshot.`);
     }
-    for (const field of ['caseSetSha256', 'resultArtifactSha256']) {
+    for (const field of ['caseSetSha256']) {
       if (!/^[a-f0-9]{64}$/.test(report?.[field] ?? '')) {
         errors.push(`${label}.${field} must be a SHA-256 digest.`);
       }
     }
-    if (!Number.isInteger(report?.caseCount) || report.caseCount < 12) {
+    if (!Number.isSafeInteger(report?.caseCount) || report.caseCount < 12) {
       errors.push(`${label}.caseCount must cover at least 12 external cases.`);
     }
-    if (
-      report?.valid !== true
-      || report?.hardAssertionsPassed !== true
-      || report?.securityRegression !== false
-    ) {
-      errors.push(`${label} does not prove a passing, regression-free evaluation.`);
-    }
+    verifyMetricComparison(report, label, errors);
     const attestation = report?.attestation;
     if (
-      attestation?.algorithm !== 'ed25519'
+      !closedKeys(attestation, ['algorithm', 'keyId', 'signature'])
+      || attestation?.algorithm !== 'ed25519'
       || typeof attestation?.keyId !== 'string'
       || !attestation.keyId
       || typeof attestation?.signature !== 'string'
@@ -262,6 +376,19 @@ function verifyIndependentEvaluation(ledger, publicKey, errors) {
 
     const receipt = report?.suiteValidationReceipt;
     if (
+      !closedKeys(receipt, [
+        'version',
+        'kind',
+        'mode',
+        'split',
+        'caseSetSha256',
+        'caseCount',
+        'requiredCategoriesComplete',
+        'hardAssertionsComplete',
+        'valid',
+        'attestation',
+      ])
+      ||
       receipt?.version !== 1
       || receipt?.kind !== 'external-suite-validation'
       || receipt?.mode !== 'external'
@@ -277,7 +404,8 @@ function verifyIndependentEvaluation(ledger, publicKey, errors) {
     }
     const receiptAttestation = receipt.attestation;
     if (
-      receiptAttestation?.algorithm !== 'ed25519'
+      !closedKeys(receiptAttestation, ['algorithm', 'keyId', 'signature'])
+      || receiptAttestation?.algorithm !== 'ed25519'
       || typeof receiptAttestation?.keyId !== 'string'
       || !receiptAttestation.keyId
       || typeof receiptAttestation?.signature !== 'string'
@@ -299,6 +427,72 @@ function verifyIndependentEvaluation(ledger, publicKey, errors) {
   for (const split of expectedSplits) {
     if (!observedSplits.has(split)) errors.push(`Missing independent evaluation split ${split}.`);
   }
+}
+
+function verifyTuningApproval(ledger, publicKey, errors) {
+  const candidate = ledger.tuningCandidate;
+  if (
+    !closedKeys(candidate, ['proposalDigest', 'targetSetDigest'])
+    || !/^[a-f0-9]{64}$/.test(candidate.proposalDigest ?? '')
+    || !/^[a-f0-9]{64}$/.test(candidate.targetSetDigest ?? '')
+  ) {
+    errors.push('Tuning requires hash-bound proposal and target-set digests.');
+    return;
+  }
+  const approval = ledger.promotionApproval;
+  if (
+    !closedKeys(approval, [
+      'version',
+      'kind',
+      'runId',
+      'baselineSnapshotId',
+      'candidateSnapshotId',
+      'proposalDigest',
+      'targetSetDigest',
+      'scope',
+      'explicitUserApproval',
+      'nonce',
+      'consumption',
+      'attestation',
+    ])
+    || !closedKeys(approval?.consumption, ['status', 'recordId'])
+    || approval?.version !== 1
+    || approval?.kind !== 'tuning-promotion-approval'
+    || approval?.runId !== ledger.runId
+    || approval?.baselineSnapshotId !== ledger.initialSnapshotId
+    || approval?.candidateSnapshotId !== ledger.integratedSnapshotId
+    || approval?.proposalDigest !== candidate.proposalDigest
+    || approval?.targetSetDigest !== candidate.targetSetDigest
+    || approval?.scope !== 'APPLY_ALLOWLISTED_PROMPTS'
+    || approval?.explicitUserApproval !== true
+    || typeof approval?.nonce !== 'string'
+    || !/^[A-Za-z0-9_-]{22,128}$/.test(approval.nonce)
+    || approval?.consumption?.status !== 'UNCONSUMED'
+    || approval?.consumption?.recordId !== null
+  ) {
+    errors.push('Tuning requires an explicit, unconsumed, digest-bound promotion approval.');
+    return;
+  }
+  const attestation = approval.attestation;
+  if (
+    !closedKeys(attestation, ['algorithm', 'keyId', 'signature'])
+    || attestation?.algorithm !== 'ed25519'
+    || typeof attestation?.keyId !== 'string'
+    || !attestation.keyId
+    || typeof attestation?.signature !== 'string'
+    || !publicKey
+  ) {
+    errors.push('Tuning promotion approval requires an external Ed25519 attestation.');
+    return;
+  }
+  const unsigned = structuredClone(approval);
+  delete unsigned.attestation;
+  if (!verify(
+    null,
+    Buffer.from(canonicalize(unsigned)),
+    publicKey,
+    Buffer.from(attestation.signature, 'base64'),
+  )) errors.push('Tuning promotion approval signature is invalid.');
 }
 
 function reviewFor(handoff, role, decisions, stopSequence) {
@@ -327,6 +521,9 @@ function validateLedger(ledger, manifest, publicKey) {
   if (!Array.isArray(mutations)) {
     errors.push('n8nMutations must be an array when present.');
   } else if (mutations.length > 0) {
+    if (ledger.runType === 'tuning') {
+      errors.push('Tuning runs cannot carry n8n mutation authorization.');
+    }
     const issuedAt = Date.parse(ledger.issuedAt);
     const validUntil = Date.parse(ledger.validUntil);
     if (
@@ -387,6 +584,9 @@ function validateLedger(ledger, manifest, publicKey) {
   if (!Array.isArray(capabilityApprovals)) {
     errors.push('capabilityApprovals must be an array when present.');
   } else {
+    if (ledger.runType === 'tuning' && capabilityApprovals.length > 0) {
+      errors.push('Tuning runs cannot carry workflow capability approvals.');
+    }
     const approvalKeys = new Set();
     for (const [index, approval] of capabilityApprovals.entries()) {
       const label = `capabilityApprovals[${index}]`;
@@ -647,6 +847,7 @@ function validateLedger(ledger, manifest, publicKey) {
       errors.push('A tuning ledger cannot contain skeleton or module writes.');
     }
     verifyIndependentEvaluation(ledger, publicKey, errors);
+    verifyTuningApproval(ledger, publicKey, errors);
   }
 
   const orderedHandoffs = [...handoffs].sort((left, right) => left.seq - right.seq);
@@ -1028,11 +1229,26 @@ if (args.includes('--self-test')) {
           split,
           candidateSnapshotId: safe.integratedSnapshotId,
           caseSetSha256: fileHash(`${split}-cases`),
-          resultArtifactSha256: fileHash(`${split}-results`),
+          metricDefinitionSha256: fileHash('metric-definition'),
+          baselineArtifactSha256: fileHash(`${split}-baseline-results`),
+          candidateArtifactSha256: fileHash(`${split}-candidate-results`),
           caseCount: 12,
-          valid: true,
-          hardAssertionsPassed: true,
-          securityRegression: false,
+          metrics: {
+            baseline: {
+              caseCount: 12,
+              hardAssertions: { passed: 12, total: 12 },
+              securityAssertions: { passed: 12, total: 12 },
+              objectiveScoreMicros: 900_000,
+              protectedCategoryScoreMicros: { safety: 1_000_000 },
+            },
+            candidate: {
+              caseCount: 12,
+              hardAssertions: { passed: 12, total: 12 },
+              securityAssertions: { passed: 12, total: 12 },
+              objectiveScoreMicros: 910_000,
+              protectedCategoryScoreMicros: { safety: 1_000_000 },
+            },
+          },
           suiteValidationReceipt: receipt,
         };
         report.attestation = {
@@ -1064,6 +1280,82 @@ if (args.includes('--self-test')) {
     booleanOnlyEvidenceErrors,
   );
 
+  const regressingEvidence = structuredClone(evidenceLedger);
+  regressingEvidence.independentEvaluation.reports[0].metrics.candidate.objectiveScoreMicros = 700_000;
+  const unsignedRegressingReport = regressingEvidence.independentEvaluation.reports[0];
+  delete unsignedRegressingReport.attestation;
+  unsignedRegressingReport.attestation = {
+    algorithm: 'ed25519',
+    keyId: 'self-test',
+    signature: sign(
+      null,
+      Buffer.from(canonicalize(unsignedRegressingReport)),
+      privateKey,
+    ).toString('base64'),
+  };
+  const regressingEvidenceErrors = [];
+  verifyIndependentEvaluation(regressingEvidence, publicKey, regressingEvidenceErrors);
+
+  const tuningCandidate = {
+    proposalDigest: fileHash('proposal'),
+    targetSetDigest: fileHash('target-set'),
+  };
+  const promotionApproval = {
+    version: 1,
+    kind: 'tuning-promotion-approval',
+    runId: 'tuning-self-test',
+    baselineSnapshotId: safe.initialSnapshotId,
+    candidateSnapshotId: safe.integratedSnapshotId,
+    proposalDigest: tuningCandidate.proposalDigest,
+    targetSetDigest: tuningCandidate.targetSetDigest,
+    scope: 'APPLY_ALLOWLISTED_PROMPTS',
+    explicitUserApproval: true,
+    nonce: 'abcdefghijklmnopqrstuv',
+    consumption: { status: 'UNCONSUMED', recordId: null },
+  };
+  promotionApproval.attestation = {
+    algorithm: 'ed25519',
+    keyId: 'self-test',
+    signature: sign(
+      null,
+      Buffer.from(canonicalize(promotionApproval)),
+      privateKey,
+    ).toString('base64'),
+  };
+  const approvalErrors = [];
+  verifyTuningApproval(
+    {
+      runId: 'tuning-self-test',
+      initialSnapshotId: safe.initialSnapshotId,
+      integratedSnapshotId: safe.integratedSnapshotId,
+      tuningCandidate,
+      promotionApproval,
+    },
+    publicKey,
+    approvalErrors,
+  );
+  const consumedApprovalErrors = [];
+  const consumedApproval = structuredClone(promotionApproval);
+  consumedApproval.consumption = { status: 'CONSUMED', recordId: 'replay' };
+  verifyTuningApproval(
+    {
+      runId: 'tuning-self-test',
+      initialSnapshotId: safe.initialSnapshotId,
+      integratedSnapshotId: safe.integratedSnapshotId,
+      tuningCandidate,
+      promotionApproval: consumedApproval,
+    },
+    publicKey,
+    consumedApprovalErrors,
+  );
+
+  const tuningWithCapabilities = structuredClone(safe);
+  tuningWithCapabilities.runType = 'tuning';
+  tuningWithCapabilities.n8nMutations = [{}];
+  tuningWithCapabilities.capabilityApprovals = [{}];
+  tuningWithCapabilities.attestation.signature = ledgerSignature(tuningWithCapabilities, privateKey);
+  const tuningCapabilityErrors = validateLedger(tuningWithCapabilities, manifest, publicKey);
+
   const valid = safeErrors.length === 0
     && denyErrors.some((error) => error.includes('preflight DENY'))
     && hiddenErrors.some((error) => error.includes('filesChanged does not match'))
@@ -1072,6 +1364,11 @@ if (args.includes('--self-test')) {
     && overlappingManifestErrors.some((error) => error.includes('Module ownership overlaps'))
     && unsafeCapabilityErrors.some((error) => error.includes('not eligible'))
     && evidenceErrors.length === 0
+    && regressingEvidenceErrors.some((error) => error.includes('objective score'))
+    && approvalErrors.length === 0
+    && consumedApprovalErrors.some((error) => error.includes('unconsumed'))
+    && tuningCapabilityErrors.some((error) => error.includes('cannot carry n8n mutation'))
+    && tuningCapabilityErrors.some((error) => error.includes('cannot carry workflow capability'))
     && booleanOnlyEvidenceErrors.some(
       (error) => error.includes('exactly two independently signed evaluation reports'),
     );
@@ -1085,6 +1382,10 @@ if (args.includes('--self-test')) {
     unsafeCapabilityErrors,
     evidenceErrors,
     booleanOnlyEvidenceErrors,
+    regressingEvidenceErrors,
+    approvalErrors,
+    consumedApprovalErrors,
+    tuningCapabilityErrors,
   }, null, 2));
   process.exit(valid ? 0 : 1);
 }

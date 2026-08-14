@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - wardloom{% endblock %}
+
+{% block content %}
+<h2>Self-improvement dashboard</h2>
+
+<section>
+    <h3>Run status</h3>
+    {% if runs %}
+    <ul class="run-list">
+        {% for run in runs %}
+        <li>
+            <strong>{{ run.run_id }}</strong>
+            {% if run.ok %}
+            <p>promotion status: {{ run.data.promotionStatus }}</p>
+            <ul class="artifact-list">
+                {% for name, present in run.data.artifacts.items() %}
+                <li class="{{ 'present' if present else 'missing' }}">
+                    {{ name }}: {{ "present" if present else "missing" }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="error-state">error: {{ run.error }}</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-state">no runs yet</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Eval / tuning files</h3>
+    {% if files %}
+    <table>
+        <thead><tr><th>Path</th><th>Size (bytes)</th><th>Modified</th></tr></thead>
+        <tbody>
+        {% for file in files %}
+            <tr><td>{{ file.path }}</td><td>{{ file.size }}</td><td>{{ file.mtime }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-state">no eval or tuning files found</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Security control hashes</h3>
+    {% if security and security[0].status == "MANIFEST_MISSING" %}
+    <p class="empty-state">security manifest not found</p>
+    {% elif security %}
+    <table>
+        <thead><tr><th>Path</th><th>Status</th></tr></thead>
+        <tbody>
+        {% for entry in security %}
+            <tr class="status-{{ entry.status | lower }}">
+                <td>{{ entry.path }}</td>
+                <td>{{ entry.status }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-state">security manifest not found</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Module manifest</h3>
+    {% if manifest.modules %}
+    <ul class="module-list">
+        {% for module in manifest.modules %}
+        <li>{{ module.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-state">module manifest not found</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}RAG chat - wardloom{% endblock %}
+
+{% block content %}
+<h2>RAG chat</h2>
+<form method="get" action="/chat">
+    <label for="query">Query</label>
+    <input type="text" id="query" name="query" value="{{ query or '' }}" required>
+    <label for="top_k">Top K</label>
+    <input type="number" id="top_k" name="top_k" value="{{ top_k or 5 }}" min="1" max="20">
+    <button type="submit">Ask</button>
+</form>
+
+{% if result %}
+    {% if result.status == "ready" %}
+        <h3>Evidence</h3>
+        <p class="planning-rule">{{ result.planning_rule }}</p>
+        <ol class="evidence-list">
+            {% for item in result.evidence %}
+            <li>
+                <p class="evidence-authority">[{{ item.citation_id }}] {{ item.authority }}</p>
+                <p class="evidence-title">
+                    {% if item.url %}
+                        <a href="{{ item.url }}">{{ item.title or item.url }}</a>
+                    {% else %}
+                        {{ item.title or "Untitled source" }}
+                    {% endif %}
+                </p>
+                <p class="evidence-text">{{ item.text }}</p>
+            </li>
+            {% endfor %}
+        </ol>
+    {% elif result.status == "invalid_query" %}
+        <p class="empty-state">{{ result.error }}</p>
+    {% else %}
+        <p class="empty-state">no evidence retrieved for this query</p>
+    {% endif %}
+{% else %}
+    <p class="empty-state">Enter a query to retrieve source-grounded evidence.</p>
+{% endif %}
+{% endblock %}

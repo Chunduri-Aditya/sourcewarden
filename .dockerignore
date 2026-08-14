@@ -1,0 +1,19 @@
+.git/
+.DS_Store
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Large, non-essential for runtime: raw scraped/cloned RAG source material
+# used only for offline index-building (see n8n_rag_system/data/ in .gitignore).
+n8n_rag_system/data/raw/
+
+# Private course source material (see knowledge/course-transcripts/* in .gitignore).
+knowledge/course-transcripts/
+
+# Untrusted local self-improvement signals (see evals/feedback/inbox/ in .gitignore).
+evals/feedback/inbox/

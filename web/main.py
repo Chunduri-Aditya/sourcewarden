@@ -10,7 +10,7 @@ from web.services.dashboard_files import eval_tuning_files, manifest_summary, se
 from web.services.rag import get_planning_context
 from web.services.self_improvement_status import status_for_all_runs
 
-app = FastAPI(title="wardloom control panel")
+app = FastAPI(title="sourcewarden control panel")
 
 TEMPLATES_DIR = REPO_ROOT / "web" / "templates"
 STATIC_DIR = REPO_ROOT / "web" / "static"

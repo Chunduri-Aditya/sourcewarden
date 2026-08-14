@@ -20,7 +20,7 @@ class MainRoutesTests(unittest.TestCase):
     def test_index_renders_nav_page(self) -> None:
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
-        self.assertIn("wardloom control panel", response.text)
+        self.assertIn("sourcewarden control panel", response.text)
         self.assertIn("/chat", response.text)
         self.assertIn("/dashboard", response.text)
 

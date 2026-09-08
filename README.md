@@ -1,6 +1,10 @@
-# n8n Workflow System
+# Sourcewarden
 
-This repository combines the source-cited multi-RAG workflow builder with the planning, orchestration, validation, and security controls of the n8n workflow generator.
+Sourcewarden turns a plain-language automation request into the smallest reliable n8n workflow, with every non-trivial node parameter backed by cited evidence and every live mutation held behind a fail-closed, externally signed approval gate.
+
+It combines a source-cited multi-RAG workflow builder with the planning, orchestration, validation, and security controls of an n8n workflow generator. Two source repositories were merged into one tree before anything was built on top.
+
+## Layout
 
 | Area | Location | Responsibility |
 |---|---|---|
@@ -10,6 +14,38 @@ This repository combines the source-cited multi-RAG workflow builder with the pl
 | Self improvement | `self_improvement/` | Untrusted feedback capture, clean baseline freezing, and fail closed prompt challenger assessment |
 
 Evidence has one explicit precedence order: live target-instance schemas, official documentation, community workflow examples, then untrusted course references. Documentation and examples inform the plan but never prove an exact node parameter for the target instance.
+
+## Quickstart
+
+No n8n instance is needed for the retrieval, validation, security-gate, and web layers below. Live workflow mutation is the only path that needs a connected instance and the signed ledger.
+
+```bash
+# retrieval + security-gate deps (standard-library-first; these cover the web and RAG query paths)
+pip install -r web/requirements.txt
+
+# 1. project + security-control validator (exit 0 == all merged-project checks pass)
+python3 scripts/validate-project.py
+
+# 2. grounded planning evidence for a request, as bounded JSON with a citation trail
+python3 scripts/retrieve-rag-context.py \
+  --query "Build a webhook that validates input and returns the weather" \
+  --top-k 3 --pretty
+
+# 3. read-only review dashboard (retrieval, security hash status, self-improvement runs)
+uvicorn web.main:app --reload    # then open http://127.0.0.1:8000
+```
+
+### Tests
+
+```bash
+python3 -m unittest discover -s web/tests -v                 # 20 tests, read-only web layer
+python3 -m unittest discover -s n8n_rag_system/tests -v      # 34 tests, retrieval + deterministic planning (offline)
+python3 -B -m unittest discover -s tests/self_improvement -v # self-improvement adversarial suite
+```
+
+The `n8n_rag_system` package runs on the Python standard library alone; the tests need no network and no vector database. Local RAG indexes under `n8n_rag_system/data/indexes/` are Git ignored and built locally.
+
+## Reference
 
 Validate the complete project from the repository root:
 
